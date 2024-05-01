@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'This is Building'
+               
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'This is Unit and Integration testing'
+                
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'This is Deploying'
+               
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded!'
+            emailext subject: "SUCCESS - Jenkins Pipeline Status",
+                     body: "The Jenkins pipeline has succeeded.",
+                     to: 'sachin832002@gmail.com',
+                     from: 'ahmadusama200@gmail.com',
+                     replyTo: 'ahmadusama200@gmail.com',
+                     attachLog: true
+        }
+        failure {
+            echo 'Pipeline failed!'
+            emailext subject: "FAILURE - Jenkins Pipeline Status",
+                     body: "The Jenkins pipeline has failed.",
+                     to: 'sachin832002@gmail.com',
+                     from: 'ahmadusama200@gmail.com',
+                     replyTo: 'ahmadusama200@gmail.com',
+                     attachLog: true
+        }
+    }
+}
